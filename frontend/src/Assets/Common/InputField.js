@@ -4,8 +4,17 @@ function InputField(props){
 
     const hangeInputChange = (e) => {
         let name_ = e.target.name
-        let val = e.target.value
-        props.setInputFields({...props.inputFields,[name_]:val})
+        if (name_ !== 'add_topic'){
+            let val = e.target.value
+            props.setInputFields({...props.inputFields,[name_]:val})
+        }
+    }
+
+    const handleKeyDown = (e) => {
+        if(e.key === 'Enter' && e.target.name === 'add_topic'){
+            let val = e.target.value
+            props.setInputFields({...props.inputFields,"add_topic":val})
+        }
     }
 
     return(
@@ -16,11 +25,12 @@ function InputField(props){
         <input 
             className="g-gray-200 w-[40%] appearance-none border-2 border-gray-200 rounded  
                     text-soft-black leading-tight focus:outline-none focus:bg-white 
-                    focus:border-gray-400 py-2 px-4 placeholder-gray-300" 
+                    focus:border-gray-400 py-2 px-4 placeholder-gray-400" 
             id={`inline-${props.name}`} 
             name={props.name}
             placeholder={props.placeholder_}
             onChange={(e) => hangeInputChange(e)}
+            onKeyDown = {(e) => handleKeyDown(e)}
             >
         </input>
     </div>

@@ -10,9 +10,13 @@ module.exports = {
     extend: {
       colors: {
         'soft-black': '#333',
+        'theme-green':'#c4da9e'
       },
       content:{
-        'x_circle':'url("./Assets/Icons/x_circle.svg")'
+        'x_circle':'url("./Assets/Icons/x_circle.svg")',
+        'plus':'url("./Assets/Icons/plus.svg")',
+        'check':'url("./Assets/Icons/check.svg")',
+        'search':'url("./Assets/Icons/search.svg")',
       }
 
     },
