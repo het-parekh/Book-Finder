@@ -2,16 +2,14 @@ import React,{useState} from 'react'
 import bookIcon from '../../Assets/Icons/bookIcon.png'
 import InputField from '../../Assets/Common/InputField'
 import './FilterBooks.css'
-import TagsInput from 'react-tagsinput'
+import topic_list from '../../Assets/topics.json'
 
 function FilterBooks(){
     
-    const [inputFields,setInputFields] = useState({author:'',title:'',publisher:'',genres:[],ISBN:"",topics:[]})
+    const [inputFields,setInputFields] = useState({author:'',title:'',publisher:'',genres:[],ISBN:"",add_topic:"",
+        topics:topic_list
+    })
     
-    const validateTag = (tag) => Boolean(tag.trim())
-    const handleTopics = (topics) => {
-        setInputFields({...InputField,topics:topics})
-    }
     return(
         <div className="container  w-[95%]  border-2 border-solid rounded-md mt-6 mx-auto drop-shadow-lg hover:drop-shadow-lg bg-[#c4da9e]">
             {/*filter title */}
@@ -27,25 +25,11 @@ function FilterBooks(){
                 <InputField name="publisher" label_="Publisher" inputFields ={inputFields} setInputFields={setInputFields} placeholder_ = "Provide the book publisher or the words it includes"/>
 
                 <div className=''>
-                    <div>Topics</div>
-                    <TagsInput 
-                        value={inputFields.topics} 
-                        onChange={handleTopics} 
-                        onlyUnique={true} 
-                        addKeys={[9,13,32]} //Enter , Tab , Space
-                        className='h-10'
-                        validate = {validateTag}
-                        inputProps={{
-                            className: `outline-none g-gray-200  appearance-none border-2 border-gray-200 rounded  
-                                        text-soft-black leading-tight focus:outline-none focus:bg-white 
-                                        focus:border-gray-400 py-2 px-4 placeholder-gray-300`,
-                            placeholder:'Enter genres to search from'
-                        }}
-                        tagProps={{
-                            className:'bg-[#fff] rounded-xl px-3 py-0.5 drop-shadow-md mr-3 inline-flex ',
-                            classNameRemove:'content-x_circle h-5 ml-1 mt-[2px]'
-                        }}
-                    />
+                <InputField name="add_topic" label_="Topic" inputFields ={inputFields} setInputFields={setInputFields} placeholder_ = "Enter a custom topic for the book or select one from below"/>
+                <span>Popular Topics</span>
+                    <div>
+                        <span></span>
+                    </div>
                 </div>
             
             </div>
