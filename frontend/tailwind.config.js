@@ -17,6 +17,7 @@ module.exports = {
         'plus':'url("./Assets/Icons/plus.svg")',
         'check':'url("./Assets/Icons/check.svg")',
         'search':'url("./Assets/Icons/search.svg")',
+        'open_book':'url("./Assets/Icons/open-book.svg")',
       }
 
     },
