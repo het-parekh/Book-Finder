@@ -63,7 +63,7 @@ function FilterBooks(){
         })
     }
     return(
-        <div className="container  w-[95%]  border-2 border-solid rounded-md mt-6 mx-auto drop-shadow-lg hover:drop-shadow-lg bg-theme-green">
+        <div className="container  w-[100%]  border-2 border-solid rounded-md mt-6 mx-auto drop-shadow-lg hover:drop-shadow-lg bg-theme-green">
             {/*filter title */}
             <div className="flex-row flex justify-center">
                 <h2 className='font-[fantasy] text-soft-black text-[30px]'>FIND YOUR BOOK </h2>
@@ -117,7 +117,7 @@ function FilterBooks(){
                 <InputField name="ISBN" inputFields ={inputFields} setInputFields={setInputFields} label_="ISBN No." placeholder_ = "Provide the ISBN number for the book (Prefered)"/>
                 
                 <div className="mt-10 mb-10 flex justify-end mr-20 ">
-                    <Button text="Search Book"/>
+                    <Button text="Search Book" icon='search'/>
                 </div>
                 
             </div>

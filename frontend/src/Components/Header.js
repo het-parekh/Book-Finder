@@ -1,6 +1,6 @@
 function Header(){
     return(
-    <nav class="flex items-center justify-between flex-wrap bg-theme-green p-6">
+    <nav class="flex items-center justify-between flex-wrap bg-theme-green p-4">
         <div class="flex items-center flex-shrink-0 text-soft-black mr-6">
             <span className='content-open_book mr-3'></span>
             <span class="font-semibold text-[24px] tracking-tight">BookSEO</span>
