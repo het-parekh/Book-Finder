@@ -1,5 +1,4 @@
 import React,{useState,useEffect,useCallback } from 'react'
-import './Home.css'
 import Particles from "react-particles";
 import { loadFull } from "tsparticles";
 import particleParams from './Particles'

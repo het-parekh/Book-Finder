@@ -3,6 +3,7 @@ import bookIcon from '../../Assets/Icons/bookIcon.png'
 import InputField from '../Common/InputField'
 import Chip from '../Common/Chip'
 import Button from '../Common/Button'
+import Alert from '../Common/Alert'
 import './FilterBooks.css'
 import topic_list from '../../Assets/topics.json'
 import TagsInput from 'react-tagsinput'
@@ -11,7 +12,7 @@ function FilterBooks(props){
     
     const [inputFields,setInputFields] = useState({author:'',title:'',publisher:'',topics:[],ISBN:"",add_topic:"",selected_topics:[]})
     const [allTopics,setAllTopics]  = useState(topic_list)
-
+    const [emptyFieldALert,setEmptyFieldALert] = useState(false)
     //TagsInput props
     const validateTag = (topic) => Boolean(topic.trim()) 
     const handleTopics = (selected_topics,changed_topics) => {
@@ -64,6 +65,13 @@ function FilterBooks(props){
     }
 
     const handleSubmit = ((e) => {
+        if(inputFields.title.trim() === '' && inputFields.author.trim() === '' && inputFields.publisher.trim() === '' && inputFields.topics.length === 0 && inputFields.ISBN.trim() === ''){
+            setEmptyFieldALert(true)
+            setTimeout(() => {
+                setEmptyFieldALert(false)
+            }, 5000);
+            return
+        }
         props.setBookParams((prevState) => ({
             ...prevState,
             title:inputFields.title,
@@ -74,6 +82,7 @@ function FilterBooks(props){
         }))
         props.setShowBooks(true)
     })
+
 
     return(
         <div className="container  w-[100%]  border-2 border-solid rounded-md mt-6 mx-auto drop-shadow-lg hover:drop-shadow-lg bg-theme-green">
@@ -134,6 +143,14 @@ function FilterBooks(props){
                 </div>
                 
             </div>
+            {/* Empty Fields Alert */}
+            {emptyFieldALert?
+            <div>
+                <Alert header="Missing Fields" message="Atleast fill one field before proceeding..."/>
+            </div>:null
+            
+            }
+            
             
         </div>
             
