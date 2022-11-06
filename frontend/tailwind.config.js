@@ -18,7 +18,8 @@ module.exports = {
         'check':'url("./Assets/Icons/check.svg")',
         'search':'url("./Assets/Icons/search.svg")',
         'open_book':'url("./Assets/Icons/open-book.svg")',
-        'search_book':'url("./Assets/Icons/search-book.png")'
+        'search_book':'url("./Assets/Icons/search-book.png")',
+        'goto':'url("./Assets/Icons/goto.svg")'
       },
       backgroundImage:{
         'home':"url('./Assets/Images/book-background.jpg')"
@@ -26,5 +27,7 @@ module.exports = {
 
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/line-clamp'),
+  ],
 }

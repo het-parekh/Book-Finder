@@ -1,15 +1,15 @@
 import React,{useState} from 'react'
 import bookIcon from '../../Assets/Icons/bookIcon.png'
-import InputField from '../../Assets/Common/InputField'
-import Chip from '../../Assets/Common/Chip'
-import Button from '../../Assets/Common/Button'
+import InputField from '../Common/InputField'
+import Chip from '../Common/Chip'
+import Button from '../Common/Button'
 import './FilterBooks.css'
 import topic_list from '../../Assets/topics.json'
 import TagsInput from 'react-tagsinput'
 
-function FilterBooks(){
+function FilterBooks(props){
     
-    const [inputFields,setInputFields] = useState({author:'',title:'',publisher:'',genres:[],ISBN:"",add_topic:"",selected_topics:[]})
+    const [inputFields,setInputFields] = useState({author:'',title:'',publisher:'',topics:[],ISBN:"",add_topic:"",selected_topics:[]})
     const [allTopics,setAllTopics]  = useState(topic_list)
 
     //TagsInput props
@@ -62,8 +62,21 @@ function FilterBooks(){
             [topic]:!allTopics[topic]
         })
     }
+
+    const handleSubmit = ((e) => {
+        props.setBookParams((prevState) => ({
+            ...prevState,
+            title:inputFields.title,
+            author:inputFields.author,
+            publisher:inputFields.publisher,
+            subjects:[inputFields.topics],
+            isbn:inputFields.ISBN,
+        }))
+        props.setShowBooks(true)
+    })
+
     return(
-        <div className="container  w-[95%]  border-2 border-solid rounded-md mt-6 mx-auto drop-shadow-lg hover:drop-shadow-lg bg-theme-green">
+        <div className="container  w-[100%]  border-2 border-solid rounded-md mt-6 mx-auto drop-shadow-lg hover:drop-shadow-lg bg-theme-green">
             {/*filter title */}
             <div className="flex-row flex justify-center">
                 <h2 className='font-[fantasy] text-soft-black text-[30px]'>FIND YOUR BOOK </h2>
@@ -117,7 +130,7 @@ function FilterBooks(){
                 <InputField name="ISBN" inputFields ={inputFields} setInputFields={setInputFields} label_="ISBN No." placeholder_ = "Provide the ISBN number for the book (Prefered)"/>
                 
                 <div className="mt-10 mb-10 flex justify-end mr-20 ">
-                    <Button text="Search Book"/>
+                    <Button onClick={handleSubmit} text="Search Book" icon='search'/>
                 </div>
                 
             </div>
