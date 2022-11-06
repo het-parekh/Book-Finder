@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 function SortBooks(props){
+    // useEffect(() => {
+    //     props.executeScroll()
+    // },[])
     const handleSort = ((e) => {
         props.setBookParams((prevState) => ({
             ...prevState,
-            orderBy:e.target.value
+            orderBy:e.target.value,
+            startIndex:0
         }))
     })
     return(

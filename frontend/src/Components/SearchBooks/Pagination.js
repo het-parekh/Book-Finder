@@ -1,7 +1,11 @@
-import React,{useCallback, useState} from 'react'
+import React,{useCallback, useState,useEffect} from 'react'
 
 function Pagination(props){
-    const [currentPage,setCurrentPage] = useState(1)
+
+    useEffect(() => {
+        props.executeScroll()
+    })
+    const [currentPage,setCurrentPage] = useState(0)
     const totalPages = Math.ceil(props.totalItems/20)
     const [pages,setPages] = [Array.from(Array(totalPages).keys())] // 0,1,2,3,4....totalpages
     // 0,1,2,3,4....totalpages
@@ -13,6 +17,7 @@ function Pagination(props){
             ...prev,
             startIndex:page
         }))
+        props.executeScroll()
     },[currentPage])
     
     return(

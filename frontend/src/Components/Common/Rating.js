@@ -38,8 +38,8 @@ function Rating(props){
 
     }else{
         return(
-            <div className='m-auto'>
-                N/A
+            <div className='m-auto italic text-gray-600'>
+                Info Unavailable
             </div>
         )
     }

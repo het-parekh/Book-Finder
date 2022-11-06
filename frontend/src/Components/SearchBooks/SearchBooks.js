@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react'
+import React,{useEffect,useState,useRef} from 'react'
 import FilterBooks from "../FilterBooks/FilterBooks";
 import BookList from '../BookList/BookList'
 import SortBooks from './SortBooks';
@@ -6,6 +6,8 @@ import Pagination from './Pagination'
 import axios from 'axios'
 
 function SearchBooks(){
+    const myRef = useRef(null)
+    const executeScroll = () => myRef.current.scrollIntoView({behavior:"smooth"})    
     const [showBooks,setShowBooks] = useState(false)
     const [books,setBooks] = useState([])
     const [bookParams,setBookParams] = useState({
@@ -29,7 +31,7 @@ function SearchBooks(){
             url+= bookParams.title.trim()?`+intitle:${bookParams.title.trim()}`:''
             url+= bookParams.author.trim()?`+inauthor:${bookParams.author.trim()}`:''
             url+= bookParams.subjects.length>0?`${bookParams.subjects.map((subject) => ('+subject:'+subject))}`:''
-            url+= `&printType=books&orderBy=${bookParams.orderBy.trim()}&startIndex=${bookParams.startIndex}&maxResults=${bookParams.maxResults}`
+            url+= `&orderBy=${bookParams.orderBy.trim()}&startIndex=${bookParams.startIndex}&maxResults=${bookParams.maxResults}`
         }     
 
         axios.get(url).then((res) => {
@@ -38,6 +40,7 @@ function SearchBooks(){
                 setBooks([])
                 return
             }
+            console.log('res.data',res.data)
             let items = res.data.items
             let temp = []
             items.forEach((book) => {
@@ -46,7 +49,7 @@ function SearchBooks(){
                     authors:book.volumeInfo.authors,
                     publisher:book.volumeInfo.publisher,
                     description:book.volumeInfo.description,
-                    thumbnail:book.volumeInfo.imageLinks.thumbnail,
+                    thumbnail:book.volumeInfo.imageLinks?.thumbnail,
                     infoLink:book.volumeInfo.infoLink,
                     rating:book.volumeInfo.averageRating,
                 })
@@ -58,10 +61,11 @@ function SearchBooks(){
 
     return(
         <>
-            <FilterBooks setShowBooks={setShowBooks} setBookParams={setBookParams}/>
-            <SortBooks setBookParams={setBookParams} showBooks={showBooks}/>
+            <FilterBooks setShowBooks={setShowBooks } setBookParams={setBookParams}/>
+            
+            <div ref={myRef}>{showBooks?<SortBooks setBookParams={setBookParams} showBooks={showBooks}/>:null}</div>
             {showBooks?<BookList books = {books}/>:null}
-            <Pagination setBookParams={setBookParams} totalItems={totalItems} showBooks={showBooks}/>
+            {showBooks?<Pagination executeScroll={executeScroll} setBookParams={setBookParams} totalItems={totalItems} showBooks={showBooks}/>:null}
         </>
     )
 }

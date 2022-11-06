@@ -79,8 +79,10 @@ function FilterBooks(props){
             publisher:inputFields.publisher,
             subjects:[inputFields.topics],
             isbn:inputFields.ISBN,
+            startIndex:0
         }))
         props.setShowBooks(true)
+        // props.executeScroll()
     })
 
 
