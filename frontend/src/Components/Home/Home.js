@@ -3,7 +3,7 @@ import './Home.css'
 import Particles from "react-particles";
 import { loadFull } from "tsparticles";
 import particleParams from './Particles'
-import Button from '../../Assets/Common/Button';
+import Button from '../Common/Button';
 import {Link} from 'react-router-dom'
 
 function Home(){
