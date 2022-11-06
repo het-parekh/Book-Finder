@@ -3,7 +3,7 @@ import {
     Routes,
     Route,
   } from "react-router-dom";
-import SearchBooks from './SearchBooks'
+import SearchBooks from './SearchBooks/SearchBooks'
 import Header from './Header'
 import Home from './Home/Home'
 
