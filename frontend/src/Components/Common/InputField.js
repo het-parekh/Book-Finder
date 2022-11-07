@@ -18,14 +18,14 @@ function InputField(props){
     }
 
     return(
-    <div className='flex flex-row mb-10'>
-        <label className=" text-soft-black font-bold mt-[3px] ml-10 mr-4 text-[20px] w-[100px]" for={`inline-${props.name}`}>
+    <div className='flex flex-row mb-10 max-sm:flex-col '>
+        <label className=" text-soft-black font-bold mt-[3px] ml-10 mr-4 text-[20px] w-[100px] max-sm:ml-0 max-sm:mb-1" for={`inline-${props.name}`}>
             {props.label_}
         </label>
         <input 
             className="g-gray-200 w-[40%] appearance-none border-2 border-gray-200 rounded  
                     text-soft-black leading-tight focus:outline-none focus:bg-white 
-                    focus:border-gray-400 py-2 px-4 placeholder-gray-400" 
+                    focus:border-gray-400 py-2 px-4 placeholder-gray-400 max-sm:w-full " 
             id={`inline-${props.name}`} 
             name={props.name}
             placeholder={props.placeholder_}

@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
 import bookIcon from '../../Assets/Icons/bookIcon.png'
+import search from '../../Assets/Icons/search.svg'
 import InputField from '../Common/InputField'
 import Chip from '../Common/Chip'
 import Button from '../Common/Button'
@@ -87,28 +88,28 @@ function FilterBooks(props){
 
 
     return(
-        <div className="container  w-[100%]  border-2 border-solid rounded-md mt-6 mx-auto drop-shadow-lg hover:drop-shadow-lg bg-theme-green">
+        <div className="container w-[100%]  border-2 border-solid rounded-md mt-6 mx-auto drop-shadow-lg hover:drop-shadow-lg bg-theme-green max-sm:border-none max-sm:overflow-x-hidden">
             {/*filter title */}
-            <div className="flex-row flex justify-center">
+            <div className="flex-row flex justify-center mt-10">
                 <h2 className='font-[fantasy] text-soft-black text-[30px]'>FIND YOUR BOOK </h2>
                 <img src={bookIcon} className="w-9 h-9 mt-1 ml-2 rotate-12"/>
             </div>
             
             {/*filter inputs */}
-            <div className="flex-col mt-[40px] ml-40">
+            <div className="flex-col mt-[40px] ml-40 max-sm:w-[88%] max-sm:ml-auto max-sm:mr-auto">
                 <InputField name="title" inputFields ={inputFields} setInputFields={setInputFields} label_="Book Title" placeholder_ = "Provide the book title or the words it includes"/>
                 <InputField name="author" label_="Author" inputFields ={inputFields} setInputFields={setInputFields} placeholder_ = "Provide the book's author or the words it includes"/>
                 <InputField name="publisher" label_="Publisher" inputFields ={inputFields} setInputFields={setInputFields} placeholder_ = "Provide the book publisher or the words it includes"/>
 
-                <div className='ml-10 mb-5'>
-                    <div className='text-soft-black font-bold mt-[3px] text-[20px] mb-4'>Topics (max 10)</div>
+                <div className='ml-10 mb-5 max-sm:ml-0'>
+                    <div className='text-soft-black font-bold mt-[3px] text-[20px] mb-2'>Topics (max 10)</div>
                     <div className='text-soft-black font-bold text-[14px] mb-2 italic '>Enter a custom topic or pick from the ones from below</div>
                     <TagsInput 
                         value={inputFields.selected_topics} 
                         onChange={handleTopics} 
                         onlyUnique={true} 
                         addKeys={[9,13]} //Enter , Tab , Space
-                        className='bg-[#fff] w-[51%] inline-block py-2 border-2 border-solid rounded-md overflow-auto'
+                        className='bg-[#fff] w-[51%] inline-block py-2 border-2 border-solid rounded-md overflow-auto max-sm:w-full'
                         validate = {validateTag}
                         inputProps={{
                             className: `outline-none g-gray-200  appearance-none rounded  
@@ -122,9 +123,9 @@ function FilterBooks(props){
                         }}
                     />
                 </div>
-                <div className='ml-10 w-[95%]'>
+                <div className='ml-10 w-full max-sm:ml-0'>
                     <div className='text-soft-black font-bold mt-[3px] text-[20px] mb-4'>Popular Topics</div>
-                    <div>
+                    <div className='max-sm:h-[300px] max-sm:overflow-y-auto max-sm:bg-white max-sm:inline-block max-sm:rounded-lg '>
                         {
                             Object.keys(allTopics).map((book) => {
                                 return(
@@ -136,12 +137,12 @@ function FilterBooks(props){
                 </div>
                 <div></div>
 
-                <div className='text-[24px] text-center py-3 after:mt-[-18px] after:flex after:m-auto after:content-[""] after:border-b-[2px] after:border-b-[#fff] after:border-b-solid mb-5 mr-20'><span className='bg-theme-green px-2 text-soft-black'>OR</span></div>
+                <div className='text-[24px] text-center py-3 after:mt-[-18px] after:flex after:m-auto after:content-[""] after:border-b-[2px] after:border-b-[#fff] after:border-b-solid mb-5 mr-20 max-sm:mr-0'><span className='bg-theme-green px-2 text-soft-black'>OR</span></div>
 
                 <InputField name="ISBN" inputFields ={inputFields} setInputFields={setInputFields} label_="ISBN No." placeholder_ = "Provide the ISBN number for the book (Prefered)"/>
                 
                 <div className="mt-10 mb-10 flex justify-end mr-20 ">
-                    <Button onClick={handleSubmit} text="Search Book" icon='search'/>
+                    <Button onClick={handleSubmit} text="Search Book" icon={search}/>
                 </div>
                 
             </div>

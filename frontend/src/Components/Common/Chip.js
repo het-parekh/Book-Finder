@@ -3,9 +3,9 @@ import React from 'react'
 function Chip(props){
     return(
         <div className='inline-flex py-2 px-1 drop-shadow-md' key={props.text}>
-            <div className='h-10 border-4 border-solid border-[#fff] rounded-l-[20px]  px-1 bg-[#fff]'>
+            <div className='h-10 border-4 border-solid border-[#fff] rounded-l-[20px]  px-1 bg-[#fff] '>
                     <div className='flex mt-1'>
-                        <div className=" rounded-[50%] w-[25px] inline-flex overflow-hidden justify-center items-center bg-theme-green" >
+                        <div className=" rounded-[50%] w-[25px] inline-flex overflow-hidden justify-center items-center bg-theme-green max-sm:hidden" >
                             <span>{props.text.slice(0,1).toUpperCase()}</span>
                         </div>
                         <span className='ml-2'>
