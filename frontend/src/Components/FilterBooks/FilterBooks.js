@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import bookIcon from '../../Assets/Icons/bookIcon.png'
 import search from '../../Assets/Icons/search.svg'
 import InputField from '../Common/InputField'
@@ -14,6 +14,11 @@ function FilterBooks(props){
     const [inputFields,setInputFields] = useState({author:'',title:'',publisher:'',topics:[],ISBN:"",add_topic:"",selected_topics:[]})
     const [allTopics,setAllTopics]  = useState(topic_list)
     const [emptyFieldALert,setEmptyFieldALert] = useState(false)
+
+    useEffect(() => {
+        props.setShowBooks(false)
+    },[inputFields])
+
     //TagsInput props
     const validateTag = (topic) => Boolean(topic.trim()) 
     const handleTopics = (selected_topics,changed_topics) => {
@@ -66,7 +71,7 @@ function FilterBooks(props){
     }
 
     const handleSubmit = ((e) => {
-        if(inputFields.title.trim() === '' && inputFields.author.trim() === '' && inputFields.publisher.trim() === '' && inputFields.topics.length === 0 && inputFields.ISBN.trim() === ''){
+        if(inputFields.title.trim() === '' && inputFields.author.trim() === '' && inputFields.publisher.trim() === '' && inputFields.selected_topics.length === 0 && inputFields.ISBN.trim() === ''){
             setEmptyFieldALert(true)
             setTimeout(() => {
                 setEmptyFieldALert(false)
@@ -78,7 +83,7 @@ function FilterBooks(props){
             title:inputFields.title,
             author:inputFields.author,
             publisher:inputFields.publisher,
-            subjects:[inputFields.topics],
+            subjects:[...inputFields.selected_topics],
             isbn:inputFields.ISBN,
             startIndex:0
         }))
@@ -96,7 +101,7 @@ function FilterBooks(props){
             </div>
             
             {/*filter inputs */}
-            <div className="flex-col mt-[40px] ml-40 max-sm:w-[88%] max-sm:ml-auto max-sm:mr-auto">
+            <div className="flex-col w-[80%] mt-[40px] ml-40 max-sm:w-[88%] max-sm:ml-auto max-sm:mr-auto">
                 <InputField name="title" inputFields ={inputFields} setInputFields={setInputFields} label_="Book Title" placeholder_ = "Provide the book title or the words it includes"/>
                 <InputField name="author" label_="Author" inputFields ={inputFields} setInputFields={setInputFields} placeholder_ = "Provide the book's author or the words it includes"/>
                 <InputField name="publisher" label_="Publisher" inputFields ={inputFields} setInputFields={setInputFields} placeholder_ = "Provide the book publisher or the words it includes"/>
@@ -125,7 +130,7 @@ function FilterBooks(props){
                 </div>
                 <div className='ml-10 w-full max-sm:ml-0'>
                     <div className='text-soft-black font-bold mt-[3px] text-[20px] mb-4'>Popular Topics</div>
-                    <div className='max-sm:h-[300px] max-sm:overflow-y-auto max-sm:bg-white max-sm:inline-block max-sm:rounded-lg '>
+                    <div className='max-sm:h-[300px] max-sm:overflow-y-auto max-sm:bg-white max-sm:inline-block max-sm:rounded-lg max-sm:scroll-smooth max-sm:focus:touch-pan-y'>
                         {
                             Object.keys(allTopics).map((book) => {
                                 return(
@@ -148,7 +153,7 @@ function FilterBooks(props){
             </div>
             {/* Empty Fields Alert */}
             {emptyFieldALert?
-            <div>
+            <div className='max-sm:w-full'>
                 <Alert header="Missing Fields" message="Atleast fill one field before proceeding..."/>
             </div>:null
             

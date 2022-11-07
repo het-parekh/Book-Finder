@@ -10,6 +10,7 @@ function SearchBooks(){
     const executeScroll = () => myRef.current.scrollIntoView({behavior:"smooth"})    
     const [showBooks,setShowBooks] = useState(false)
     const [books,setBooks] = useState([])
+    const [totalPages,setTotalPages] = useState()
     const [bookParams,setBookParams] = useState({
         title:"",
         author:"",
@@ -20,20 +21,21 @@ function SearchBooks(){
         maxResults:20,
         orderBy:"relevance"
     })
-    const [totalItems,setTotaItems] = useState(0)
 
     useEffect(() => {
-        // console.log(bookParams.startIndex)
+        console.log(bookParams.startIndex,'start')
+        console.log(bookParams.subjects,'subjects')
         let url="https://www.googleapis.com/books/v1/volumes?q="
         if(bookParams.isbn.trim() !== ""){
             url+=`+isbn:${bookParams.isbn.trim()}`
         }else{
+            // url+= bookParams.title.trim()??""
             url+= bookParams.title.trim()?`+intitle:${bookParams.title.trim()}`:''
             url+= bookParams.author.trim()?`+inauthor:${bookParams.author.trim()}`:''
-            url+= bookParams.subjects.length>0?`${bookParams.subjects.map((subject) => ('+subject:'+subject))}`:''
+            url+= bookParams.subjects?`${bookParams.subjects.map((subject) => ('+subject:'+subject))}`:''
             url+= `&orderBy=${bookParams.orderBy.trim()}&startIndex=${bookParams.startIndex}&maxResults=${bookParams.maxResults}`
         }     
-
+        console.log(url,"URL")
         axios.get(url).then((res) => {
             
             if(!res.data || !res.data.items){
@@ -54,7 +56,9 @@ function SearchBooks(){
                     rating:book.volumeInfo.averageRating,
                 })
             })
-            setTotaItems(res.data.totalItems)
+            if(bookParams.startIndex === 0){
+                setTotalPages(Math.ceil(res.data.totalItems/20))
+            }
             setBooks(temp)
         })
     },[bookParams])
@@ -62,10 +66,9 @@ function SearchBooks(){
     return(
         <>
             <FilterBooks setShowBooks={setShowBooks } setBookParams={setBookParams}/>
-            
-            <div ref={myRef}>{showBooks?<SortBooks setBookParams={setBookParams} showBooks={showBooks}/>:null}</div>
+            <div ref={myRef}>{showBooks?<SortBooks setBookParams={setBookParams} bookParams={bookParams} />:null}</div>
             {showBooks?<BookList books = {books}/>:null}
-            {showBooks?<Pagination executeScroll={executeScroll} setBookParams={setBookParams} totalItems={totalItems} showBooks={showBooks}/>:null}
+            {showBooks && totalPages?<Pagination executeScroll={executeScroll} setBookParams={setBookParams} totalPages={totalPages}/>:null}
         </>
     )
 }
