@@ -1,11 +1,10 @@
 const router = require('express').Router();
 
-const dbm = require('../Controller/dbm');
-const User = require('../Models/User');
-const bcrypt = require('bcrypt')
+// const dbm = require('../Controller/dbm');
+// const User = require('../Models/User');
+// const bcrypt = require('bcrypt')
 const passport = require('passport')
-const jwt = require('jsonwebtoken');
-const { rawListeners } = require('../app');
+// const jwt = require('jsonwebtoken');
 
 router.get('/' , async (req, res) => {
   return res.status(200).send("User get req")
@@ -48,9 +47,9 @@ router.get('/auth/google/callback',passport.authenticate('google',{failureRedire
 
 router.get('/auth/success',(req,res) => {
   if(req.user){
-    res.status(200).send("Logged In Successfully")
+    res.status(200).send({msg:"Logged In Successfully"})
   }else{
-    res.status(401).send("Authorization Failed")
+    res.status(401).send({msg:"Authorization Failed"})
   }
   
 })
