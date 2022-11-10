@@ -9,12 +9,12 @@ mongoose.connect(process.env.URI,{
 .then(() => console.log("connected to database"))
 .catch((err) => console.log(err))
 
-function addNewUserToDatabase(user) {
-    User.create(user).then(res => {
-        return ("User added successfully")
-    })
-    .catch((error) => console.log("cannot add user",error))
-}
+// function addNewUserToDatabase(user) {
+//     User.create(user).then(res => {
+//         return ("User added successfully")
+//     })
+//     .catch((error) => console.log("cannot add user",error))
+// }
 
 function addOauthUser(user){
     User.create(user).then(res => {
@@ -37,7 +37,7 @@ function addOauthUser(user){
 // }
 
 module.exports = {
-    addNewUserToDatabase:addNewUserToDatabase,
+    // addNewUserToDatabase:addNewUserToDatabase,
     addOauthUser:addOauthUser
     // saveBooks:saveBooks
 }

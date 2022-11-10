@@ -9,16 +9,23 @@ app.use(express.urlencoded({ extended: true }));
 
 const user = require('./routes/user');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+
 const passport = require('passport');
 require('./Controller/Authentication/passportConfig');
 
 
 app.use(cors({
-	origin: [process.env.FRONTEND],
-  withCredentials:true
+	origin:["http://localhost:3000",'http://localhost:5000'],
+  credentials:true
 }))
 
+app.use(cookieParser());
+app.use(session({secret: process.env.SECRET}))
+
 app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/user', user);
 
