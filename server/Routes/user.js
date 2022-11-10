@@ -20,21 +20,10 @@ router.get('/' , async (req, res) => {
 // }
 
 router.get('/auth/failed',(req,res) => {
-  console.log('failed pass')
   res.redirect(req.session.returnTo)
 })
 
-// router.get('/auth/login',(req,res) => {
-//   console.log(req.session)
-//   console.log('first pass',req.originalUrl)
-//   req.session.returnTo = req.originalUrl
-//   res.status(200).send({status:"success"})
-//   window.open(process.env.HOST + '/user/auth/google','_self')
-// })
-
 const saveUrl = (req,res,next) => {
-  console.log(req)
-  console.log('first pass',req.originalUrl)
   req.session.returnTo = req.originalUrl
   next()
 }
@@ -47,7 +36,7 @@ router.get('/auth/google/callback',passport.authenticate('google',{failureRedire
 
 router.get('/auth/success',(req,res) => {
   if(req.user){
-    res.status(200).send({msg:"Logged In Successfully"})
+    res.status(200).send({msg:"Logged In Successfully",firstName:req.user.firstName,lastName:req.user.lastName})
   }else{
     res.status(401).send({msg:"Authorization Failed"})
   }

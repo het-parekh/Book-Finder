@@ -22,7 +22,10 @@ app.use(cors({
 }))
 
 app.use(cookieParser());
-app.use(session({secret: process.env.SECRET}))
+app.use(session({
+  secret: process.env.SECRET,
+  cookie: { maxAge: 10 * 24 * 60 * 60 * 1000 },//10 days
+}))
 
 app.use(passport.initialize());
 app.use(passport.session());

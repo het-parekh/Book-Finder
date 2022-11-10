@@ -64,7 +64,6 @@ exports.googleAuthenticate = passport.use(new GoogleStrategy({
   },
   function(request, accessToken, refreshToken, profile, done) {
     User.findOne({ googleId: profile.id }, (err, user) => {
-		console.log("GOOGLE profile")
 		if(err){
 			return done(err); 
 		}
