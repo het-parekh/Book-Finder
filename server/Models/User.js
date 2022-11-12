@@ -7,7 +7,7 @@ const UserSchema = new mongoose.Schema({
     googleId:{type: String, default: null },
     firstName:{type: String, default: null },
     lastName:{type: String, default: null },
-    
+    savedBooks:[{type: String, default: null , unique:true }]
 })
 
 module.exports = mongoose.model("User",UserSchema);

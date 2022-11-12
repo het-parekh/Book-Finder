@@ -9,13 +9,49 @@ const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 const dbm = require('../dbm')
 
 passport.serializeUser(function(user, done) {
+	console.log("serialize",user)
 	done(null, user);
   });
   
   passport.deserializeUser(function(user, done) {
+	console.log("deserializeUser",user)
 	done(null, user);
+
   });
   
+
+
+exports.googleAuthenticate = passport.use(new GoogleStrategy({
+    clientID:     process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: "/user/auth/google/callback",
+    passReqToCallback   : true
+  },
+  function(request, accessToken, refreshToken, profile, done) {
+    User.findOne({ googleId: profile.id }, (err, user) => {
+		if(err){
+			return done(err); 
+		}
+		else if(user){
+			return done(null,user)
+		}else{
+			let user_data = {
+				email:profile.email,
+				googleId:profile.id,
+				firstName:profile.given_name,
+				lastName:profile.family_name
+			}
+			try{
+				dbm.addOauthUser(user_data)
+			}
+			catch{
+				return done(null,user)
+			}
+		}      
+    });
+  }
+));
+
 
 // *************Removed Custom Login*************
 
@@ -55,38 +91,6 @@ passport.serializeUser(function(user, done) {
 // 		});
 // }
 // ));
-
-exports.googleAuthenticate = passport.use(new GoogleStrategy({
-    clientID:     process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "/user/auth/google/callback",
-    passReqToCallback   : true
-  },
-  function(request, accessToken, refreshToken, profile, done) {
-    User.findOne({ googleId: profile.id }, (err, user) => {
-		if(err){
-			return done(err); 
-		}
-		else if(user){
-			return done(null,user)
-		}else{
-			let user_data = {
-				email:profile.email,
-				googleId:profile.id,
-				firstName:profile.given_name,
-				lastName:profile.family_name
-			}
-			try{
-				dbm.addOauthUser(user_data)
-			}
-			catch{
-				return done(null,user)
-			}
-		}      
-    });
-  }
-));
-
 
 
 exports.verifyUser = passport.authenticate('jwt',{session:false})

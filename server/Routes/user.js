@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-// const dbm = require('../Controller/dbm');
+const dbm = require('../Controller/dbm');
 // const User = require('../Models/User');
 // const bcrypt = require('bcrypt')
 const passport = require('passport')
@@ -10,25 +10,11 @@ router.get('/' , async (req, res) => {
   return res.status(200).send("User get req")
 })
 
-// if(req.user){
-//   const payload = {
-//     email:req.user.email,
-//     _id: req.user._id
-//   }
-//   let token = jwt.sign(payload,process.env.SECRET,{expiresIn:"20D"})
-//   return res.status(200).send({msg:"User has been logged in successfully",token:"Bearer " + token})
-// }
-
 router.get('/auth/failed',(req,res) => {
-  res.redirect(req.session.returnTo)
+  res.redirect()
 })
 
-const saveUrl = (req,res,next) => {
-  req.session.returnTo = req.originalUrl
-  next()
-}
-
-router.get('/auth/google',saveUrl,passport.authenticate('google',{ scope: [ 'email', 'profile' ] }))
+router.get('/auth/google',passport.authenticate('google',{ scope: [ 'email', 'profile' ] }))
 
 router.get('/auth/google/callback',passport.authenticate('google',{failureRedirect:"/auth/failed"}),(req,res) => {
   res.redirect(process.env.FRONTEND)
@@ -36,11 +22,49 @@ router.get('/auth/google/callback',passport.authenticate('google',{failureRedire
 
 router.get('/auth/success',(req,res) => {
   if(req.user){
-    res.status(200).send({msg:"Logged In Successfully",firstName:req.user.firstName,lastName:req.user.lastName})
+    res.status(200).send({msg:"Logged In Successfully",firstName:req.user.firstName,lastName:req.user.lastName,user_id:req.user._id})
   }else{
     res.status(401).send({msg:"Authorization Failed"})
   }
   
+})
+
+router.get('/savedbooks/',(req,res) => {
+  if(req.user){
+    let user_id = req.user._id
+    dbm.getSavedBooks(user_id).then((books) => {
+      res.status(200).send({msg:"Saved Books Successfully Retrieved",books:books})
+    })
+  }else{
+    return res.status(401).send({msg:"Authentication not done"})
+  }
+})  
+
+router.put('/savedbooks/:book_id',(req,res) => {
+  console.log("IN SAVED VOOSK API" ,req.params.book_id , req  )
+  if(req.user){
+    let book_id = req.params.book_id
+    let user_id = req.user._id
+    console.log(user_id,book_id,"ADDD")
+    dbm.addSavedBook(user_id,book_id).then(() => {
+      res.status(200).send({msg:"Book Successfully Added"})
+    })
+  }else{
+    return res.status(401).send({msg:"Authentication not done"})
+  }
+})
+
+router.delete('/savedBooks/:book_id',(req,res) => {
+  if(req.user){
+    let book_id = req.params.book_id
+    let user_id = req.user._id
+    console.log(user_id,book_id,"REMOVEE")
+    dbm.removeSavedBook(user_id,book_id).then(() => {
+      res.status(200).send({msg:"Book Successfully Removed"})
+    })
+  }else{
+    res.status(401).send({msg:"Authentication not done"})
+  }
 })
 // Removed Custom Login
 

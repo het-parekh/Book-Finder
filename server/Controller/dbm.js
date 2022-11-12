@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const User = require("../Models/User")
-// const SavedBooks = required("../Models/SavedBooks")
 
 mongoose.connect(process.env.URI,{    
     useNewUrlParser: true,
@@ -23,23 +22,35 @@ function addOauthUser(user){
     .catch((error) => error)
 }
 
-// function saveBooks(books,user){
-//     books.forEach((book) => {
-//         SavedBooks.insertOne({
-//             user:user,
-//             google_book_id:book.id
-//         })
-//         .then((res) => {
-//             return ("Books saved successfully")
-//         })
-//         .catch((error) => Promise.reject("cannot add books"))
-//     })
-// }
+function getSavedBooks(user_id){
+    return User.findById(user_id).then((user) => {
+        return user.savedBooks
+    })
+}
+
+function addSavedBook(user_id,book_id){
+    return User.findById(user_id).then((user) => {
+        user.savedBooks.push(book_id)
+        user.save()
+    })
+}
+
+function removeSavedBook(user_id,book_id){
+    return User.findById(user_id).then((user) => {
+        console.log("TO BE DELETED",book_id,user.savedBooks)
+        user.savedBooks = user.savedBooks.filter(book => book !== book_id)
+        console.log("DELETED",user.savedBooks)
+        user.save()
+    })
+}
+
 
 module.exports = {
     // addNewUserToDatabase:addNewUserToDatabase,
-    addOauthUser:addOauthUser
-    // saveBooks:saveBooks
+    addOauthUser:addOauthUser,
+    getSavedBooks:getSavedBooks,
+    addSavedBook:addSavedBook,
+    removeSavedBook:removeSavedBook,
 }
 
 
