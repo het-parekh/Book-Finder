@@ -1,7 +1,12 @@
 import React,{useState,useEffect} from 'react'
 import './BookList.css'
 import Rating from '../Common/Rating'
+import Tooltip from '../Common/Tooltip'
 import coverUnavailable from '../../Assets/Images/cover-unavailable.jpg'
+import addBook from '../../Assets/Icons/add-book.png'
+import removeBook from '../../Assets/Icons/remove-book.png'
+import {addSavedBook,removeSavedBook} from '../Api'
+
 function BookList(props){
 
     useEffect(() => {
@@ -13,17 +18,32 @@ function BookList(props){
 
     const [expandedIndex,setExpandedIndex] = useState(-1)
     const [width, setWidth] = useState(window.innerWidth);
+    const [savedBooks,setSavedBooks] = useState(props.savedBooks)
 
     const handleWindowSizeChange = () => {
         setWidth(window.innerWidth)
     }
+    const saveBook = (isbn) => {
+        addSavedBook(isbn).then(() => {
+            let temp = new Set([...savedBooks])
+            temp.add(isbn)
+            setSavedBooks(temp)
+        })
+    }
+
+    const discardBook = (isbn) => {
+        removeSavedBook(isbn).then(() => {
+            let temp = new Set([...savedBooks])
+            temp.delete(isbn)
+            setSavedBooks(temp)
+        })
+    }
 
     const isMobile = width <= 768
-
-    
     
 
     if(props.books && props.books.length === 0){
+        console.log(props.books,"HASSSS",Object.keys(props.books).length)
         return(
             <div className="border border-solid border-gray-300 drop-shadow-2xl flex h-32 p-4 relative mb-10 text-center">
                 Unfortunately, No Results Found were returned for your search. Change the search parameters & try again...
@@ -34,10 +54,10 @@ function BookList(props){
 
 
     return(
-    <>      
+    <>  
         {isMobile && props?.books && props.books.map((book,index) => (
             //  Small Screen View
-            <div className='border border-solid border-gray-300 drop-shadow-2xl flex flex-col p-3 relative mb-10 overflow-x-hidden min-lg:hidden touch-pan-y'>
+            <div className='border border-solid border-gray-300 drop-shadow-2xl flex flex-col p-3 relative mb-10 overflow-x-hidden touch-pan-y '>
                 <div className='flex'>
                     <div className="rounded-sm  flex-shrink-0 bottom-[-35px] left-[35px]">
                         <img src={book.thumbnail??coverUnavailable} width={90}  className="flex-shrink-0 h-[120px]" />
@@ -91,18 +111,35 @@ function BookList(props){
                         <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
                     </svg>
                 </div>
+                <div className='h-6 w-6 float-right absolute top-3 right-12 hover:cursor-pointer hover:shadow-[0px_0px_3px_rgba(26,26,26,0.3)]'>
+                    {props.auhtorizationStatus === true && savedBooks.has(book.isbn)?
+                        
+                        <Tooltip showlogin={!props.auhtorizationStatus} content="Discard the book from your list">
+                            <img src={removeBook} onClick = {() => discardBook(book.isbn)}  />
+                        </Tooltip>
+                        :
+                        <Tooltip showlogin={!props.auhtorizationStatus} content="Save the book to your list">
+                            <img src={addBook} onClick = {() => saveBook(book.isbn)}  />
+                        </Tooltip>
+                    }
+                </div>
                 {expandedIndex !== index?
-                <button onClick={() => setExpandedIndex(index)} className='float-right absolute top-2 right-2 hover:shadow-[0px_0px_3px_rgba(26,26,26,0.3)]' title="Expand">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mt-1 mr-1">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 4.5h14.25M3 9h9.75M3 13.5h9.75m4.5-4.5v12m0 0l-3.75-3.75M17.25 21L21 17.25" />
-                    </svg>
-                </button>
+                    <button onClick={() => setExpandedIndex(index)} className='float-right absolute top-2 right-2 hover:shadow-[0px_0px_3px_rgba(26,26,26,0.3)]'>
+                        <Tooltip content="Expand" showlogin={false}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mt-1 mr-1">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 4.5h14.25M3 9h9.75M3 13.5h9.75m4.5-4.5v12m0 0l-3.75-3.75M17.25 21L21 17.25" />
+                            </svg>
+                        </Tooltip>
+                    </button>          
                 :
-                <button onClick={() => setExpandedIndex(-1)} className='float-right absolute top-2 right-2 hover:shadow-[0px_0px_3px_rgba(26,26,26,0.3)]' title="Collapse">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 4.5h14.25M3 9h9.75M3 13.5h5.25m5.25-.75L17.25 9m0 0L21 12.75M17.25 9v12" />
-                    </svg>
-                </button>
+                    <button onClick={() => setExpandedIndex(-1)} className='float-right absolute top-2 right-2 hover:shadow-[0px_0px_3px_rgba(26,26,26,0.3)]'>
+                        <Tooltip content="Collapse" showlogin={false}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 4.5h14.25M3 9h9.75M3 13.5h5.25m5.25-.75L17.25 9m0 0L21 12.75M17.25 9v12" />
+                            </svg>
+                        </Tooltip>
+                    </button>
+                
                 }
             </div>
         ))} 

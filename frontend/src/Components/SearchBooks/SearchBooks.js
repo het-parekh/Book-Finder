@@ -3,13 +3,14 @@ import FilterBooks from "../FilterBooks/FilterBooks";
 import BookList from '../BookList/BookList'
 import SortBooks from './SortBooks';
 import Pagination from './Pagination'
-import axios from 'axios'
+import {getBooks,getSavedBooks} from '../Api'
 
-function SearchBooks(){
+function SearchBooks(props){
     const myRef = useRef(null)
     const executeScroll = () => myRef.current.scrollIntoView({behavior:"smooth"})    
     const [showBooks,setShowBooks] = useState(false)
     const [books,setBooks] = useState([])
+    const [savedBooks,setSavedBooks] = useState(new Set([]))
     const [totalPages,setTotalPages] = useState()
     const [bookParams,setBookParams] = useState({
         title:"",
@@ -23,21 +24,17 @@ function SearchBooks(){
     })
 
     useEffect(() => {
-        console.log(bookParams.startIndex,'start')
-        console.log(bookParams.subjects,'subjects')
-        let url="https://www.googleapis.com/books/v1/volumes?q="
-        if(bookParams.isbn.trim() !== ""){
-            url+=`+isbn:${bookParams.isbn.trim()}`
-        }else{
-            // url+= bookParams.title.trim()??""
-            url+= bookParams.title.trim()?`+intitle:${bookParams.title.trim()}`:''
-            url+= bookParams.author.trim()?`+inauthor:${bookParams.author.trim()}`:''
-            url+= bookParams.subjects?`${bookParams.subjects.map((subject) => ('+subject:'+subject))}`:''
-            url+= `&orderBy=${bookParams.orderBy.trim()}&startIndex=${bookParams.startIndex}&maxResults=${bookParams.maxResults}`
-        }     
-        console.log(url,"URL")
-        axios.get(url).then((res) => {
-            
+        if(props.auhtorizationStatus){
+            getSavedBooks().then((res) => {
+                console.log("NORMANDY",res)
+                setSavedBooks(new Set([...res.data?.books]))
+            })
+        }
+    },[])
+
+    useEffect(() => {
+
+        getBooks(bookParams).then((res => {
             if(!res.data || !res.data.items){
                 setBooks([])
                 return
@@ -46,6 +43,7 @@ function SearchBooks(){
             let items = res.data.items
             let temp = []
             items.forEach((book) => {
+                console.log(book.volumeInfo.industryIdentifiers[0].identifier,"ISBN")
                 temp.push({
                     title:book.volumeInfo.title,
                     authors:book.volumeInfo.authors,
@@ -54,20 +52,22 @@ function SearchBooks(){
                     thumbnail:book.volumeInfo.imageLinks?.thumbnail,
                     infoLink:book.volumeInfo.infoLink,
                     rating:book.volumeInfo.averageRating,
+                    isbn:book.volumeInfo.industryIdentifiers[0].identifier
                 })
             })
             if(bookParams.startIndex === 0){
                 setTotalPages(Math.ceil(res.data.totalItems/20))
             }
             setBooks(temp)
-        })
+        }))
+             
     },[bookParams])
 
     return(
         <>
             <FilterBooks setShowBooks={setShowBooks } setBookParams={setBookParams}/>
             <div ref={myRef}>{showBooks?<SortBooks setBookParams={setBookParams} bookParams={bookParams} />:null}</div>
-            {showBooks?<BookList books = {books}/>:null}
+            {showBooks?<BookList savedBooks={savedBooks} books = {books} auhtorizationStatus = {props.auhtorizationStatus}/>:null}
             {showBooks && totalPages?<Pagination executeScroll={executeScroll} setBookParams={setBookParams} totalPages={totalPages}/>:null}
         </>
     )
