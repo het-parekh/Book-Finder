@@ -7,6 +7,7 @@ import SearchBooks from './SearchBooks/SearchBooks'
 import Header from './Header'
 import Home from './Home/Home'
 import SavedBooks from './SavedBooks/SavedBooks'
+import Loader from './Common/Loader'
 import {checkAuthorization} from './Api'
 import PrivateRoute from './PrivateRoute';
 
@@ -27,13 +28,14 @@ function Main(){
    },[])
    
    if(typeof auhtorizationStatus === 'undefined'){
-    return (<div className='bg-black'>Loading</div>)
+    return (<Loader />)
    }
     return(
-        <>
+        <>  
             <Header auhtorizationStatus={auhtorizationStatus} userDetails={userDetails}/>
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/loader" element={<Loader />} />
                 <Route path="/books" element = {< SearchBooks auhtorizationStatus={auhtorizationStatus}/>} />
                 <Route element={<PrivateRoute auhtorizationStatus={auhtorizationStatus} />}>
                     <Route path="/saved-books" element = {<SavedBooks auhtorizationStatus={auhtorizationStatus}/>} />

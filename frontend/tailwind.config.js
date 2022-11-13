@@ -23,9 +23,20 @@ module.exports = {
       },
       backgroundImage:{
         'home':"url('./Assets/Images/book-background.jpg')"
-      }
-
+      },
+      keyframes:{
+          
+          wiggle: {
+            '0%, 100%': { transform: 'rotate(-3deg)' },
+            '50%': { transform: 'rotate(3deg)' },
+          }
+  
+        },
+        animation:{
+          wiggle: 'wiggle 1s cubic-bezier(0, .39, 1, .68) infinite'
+        }
     },
+
   },
   plugins: [
     require('@tailwindcss/line-clamp'),

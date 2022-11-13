@@ -10,7 +10,7 @@ function SearchBooks(props){
     const executeScroll = () => myRef.current.scrollIntoView({behavior:"smooth"})    
     const [showBooks,setShowBooks] = useState(false)
     const [books,setBooks] = useState([])
-    const [savedBooks,setSavedBooks] = useState(new Set([]))
+    const [savedBooks,setSavedBooks] = useState()
     const [totalPages,setTotalPages] = useState()
     const [bookParams,setBookParams] = useState({
         title:"",
@@ -62,6 +62,8 @@ function SearchBooks(props){
         }))
              
     },[bookParams])
+
+
 
     return(
         <>

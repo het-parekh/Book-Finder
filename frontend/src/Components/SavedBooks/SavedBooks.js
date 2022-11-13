@@ -1,6 +1,7 @@
 import React,{useEffect,useState} from 'react'
 import BookList from '../BookList/BookList'
 import {getSavedBooks,getBooks} from '../Api'
+import Loader from '../Common/Loader'
 
 
 function SavedBooks(){
@@ -34,7 +35,7 @@ function SavedBooks(){
 
     const [books,setBooks] = useState()
     if(!books){
-        return
+        return <Loader />
     }
     console.log(books,"heyaa",books.length,typeof books)
     

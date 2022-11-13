@@ -29,6 +29,12 @@ router.get('/auth/success',(req,res) => {
   
 })
 
+router.get('/logout',(req,res) => {
+  req.session.destroy()
+  res.status(200).send("Logged Out Successfully")
+
+})
+
 router.get('/savedbooks/',(req,res) => {
   if(req.user){
     let user_id = req.user._id

@@ -28,6 +28,10 @@ export const checkAuthorization = (() => {
     return axios.get(baseUrl + 'user/auth/success',{withCredentials:true})
 })
 
+export const logout = (() => {
+    return axios.get(baseUrl + 'user/logout',{withCredentials:true})
+})
+
 export const addSavedBook = ((book_id) => {
     return axios.put(baseUrl + 'user/savedBooks/' + book_id,{},{withCredentials:true})
 })
@@ -37,3 +41,4 @@ export const removeSavedBook = ((book_id) => {
 export const getSavedBooks = (() => {
     return axios.get(baseUrl + 'user/savedBooks/',{withCredentials:true})
 })
+

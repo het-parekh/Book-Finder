@@ -6,6 +6,7 @@ import coverUnavailable from '../../Assets/Images/cover-unavailable.jpg'
 import addBook from '../../Assets/Icons/add-book.png'
 import removeBook from '../../Assets/Icons/remove-book.png'
 import {addSavedBook,removeSavedBook} from '../Api'
+import Loader from '../Common/Loader'
 
 function BookList(props){
 
@@ -19,6 +20,7 @@ function BookList(props){
     const [expandedIndex,setExpandedIndex] = useState(-1)
     const [width, setWidth] = useState(window.innerWidth);
     const [savedBooks,setSavedBooks] = useState(props.savedBooks)
+    const isMobile = width <= 768
 
     const handleWindowSizeChange = () => {
         setWidth(window.innerWidth)
@@ -39,11 +41,13 @@ function BookList(props){
         })
     }
 
-    const isMobile = width <= 768
-    
+
+
+    if(!props.books){
+        return (<Loader />)
+    }
 
     if(props.books && props.books.length === 0){
-        console.log(props.books,"HASSSS",Object.keys(props.books).length)
         return(
             <div className="border border-solid border-gray-300 drop-shadow-2xl flex h-32 p-4 relative mb-10 text-center">
                 Unfortunately, No Results Found were returned for your search. Change the search parameters & try again...
@@ -69,7 +73,9 @@ function BookList(props){
                     </div>
                 </div>
                 
-                <div className='line-clamp-5 inline-block mt-3 '>
+                <div className='line-clamp-5 inline-block mt-3 
+                                first-letter:text-7xl first-letter:font-bold first-letter:text-white first-letter:mr-1 first-letter:float-left
+                                '>
                 <hr />
                 {book.description??no_data_placeholder}
                 </div>
