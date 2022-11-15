@@ -5,7 +5,6 @@ import InputField from '../Common/InputField'
 import Chip from '../Common/Chip'
 import Button from '../Common/Button'
 import Alert from '../Common/Alert'
-import './FilterBooks.css'
 import topic_list from '../../Assets/topics.json'
 import TagsInput from 'react-tagsinput'
 
