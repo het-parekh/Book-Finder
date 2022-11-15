@@ -95,12 +95,12 @@ function BookList(props){
                     <img src={book.thumbnail??coverUnavailable} width={110}  className="flex-shrink-0 h-36" />
                 </div>
                 <div className="ml-10 w-[20%]">
-                    <div className={`text-soft-black ${expandedIndex!==index?"line-clamp-1":""} "`}><span className='font-semibold '>Title: </span>{book.title??(<span className='italic text-gray-600'>Info Unavailable</span>)}</div>
-                    <div className={`text-soft-black ${expandedIndex!==index?"line-clamp-2":""} "`}><span className='font-semibold 2'>Author: </span>{book.authors?book.authors.join(', '):(<span className='italic text-gray-600'>Info Unavailable</span>)}</div>
-                    <div className={`text-soft-black ${expandedIndex!==index?"line-clamp-1":""} "`}><span className='font-semibold'>Publisher: </span>{book.publisher??(<span className='italic text-gray-600'>Info Unavailable</span>)}</div>
+                    <div className={`text-soft-black ${expandedIndex!==index?"line-clamp-1":""} `}><span className='font-semibold '>Title: </span>{book.title??(<span className='italic text-gray-600'>Info Unavailable</span>)}</div>
+                    <div className={`text-soft-black ${expandedIndex!==index?"line-clamp-2":""} `}><span className='font-semibold 2'>Author: </span>{book.authors?book.authors.join(', '):(<span className='italic text-gray-600'>Info Unavailable</span>)}</div>
+                    <div className={`text-soft-black ${expandedIndex!==index?"line-clamp-1":""} `}><span className='font-semibold'>Publisher: </span>{book.publisher??(<span className='italic text-gray-600'>Info Unavailable</span>)}</div>
                 </div>
                     
-                <p className={`text-soft-black w-[40%] ml-5 ${expandedIndex!==index?"line-clamp-3":""} "`}> 
+                <p className={`text-soft-black w-[40%] ml-5 ${expandedIndex!==index?"line-clamp-3":""}`}> 
                     {book.description??(<div className='text-center italic text-gray-600 '>No Description Available</div>)}
                 </p>
 
