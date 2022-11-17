@@ -21,14 +21,14 @@ require('./Controller/Authentication/passportConfig');
 const user = require('./Routes/user')
 
 app.use(cors({
-	origin:[process.env.FRONTEND],
+	origin:[process.env.FRONTEND,process.env.HOST],
   credentials:true
 }))
 
 app.use(cookieParser());
 app.use(session({
   secret: process.env.SECRET,
-  cookie: { maxAge: 10 * 24 * 60 * 60 * 1000 , secure: true ,sameSite: 'none'},//10 days
+  cookie: { maxAge: 10 * 24 * 60 * 60 * 1000},//10 days
 }))
 
 app.use(passport.initialize());

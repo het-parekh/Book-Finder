@@ -31,6 +31,8 @@ router.get('/auth/success',(req,res) => {
 
 router.get('/logout',(req,res) => {
   req.session = null
+  res.clearCookie('session')
+  res.clearCookie('app.session.sig')
   res.status(200).send("Logged Out Successfully")
 
 })
@@ -47,7 +49,6 @@ router.get('/savedbooks/',(req,res) => {
 })  
 
 router.put('/savedbooks/:book_id',(req,res) => {
-  console.log("IN SAVED VOOSK API" ,req.params.book_id , req  )
   if(req.user){
     let book_id = req.params.book_id
     let user_id = req.user._id
