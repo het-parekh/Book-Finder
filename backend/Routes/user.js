@@ -31,6 +31,8 @@ router.get('/auth/success',(req,res) => {
 
 router.get('/logout',(req,res) => {
   req.session = null
+  res.clearCookie('session')
+  res.clearCookie('session.sig')
   res.status(200).send("Logged Out Successfully")
 
 })
