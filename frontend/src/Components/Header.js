@@ -71,7 +71,7 @@ function Header(props){
         </div>
 
              
-            <div className={`flex  max-sm:w-full max-sm:flex-col max-sm:h-[${open?"120px":"0px"}]  transition-all ease-in duration-250`}>
+            <div className={`flex  max-sm:w-full max-sm:flex-col ${open?"max-sm:h-[120px]":"max-sm:h-[0px]"} transition-all ease-in duration-250`}>
             {open &&
                 <>
                 {props.auhtorizationStatus === true?<>

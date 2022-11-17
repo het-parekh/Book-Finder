@@ -6,16 +6,23 @@ function Tooltip(props){
     const [show,setShow] = useState(false)
     const [loginShow,setLoginShow] = useState(false)
     return (<>
-        {props.showlogin === false?
+        {!props.showlogin || props.showlogin === false?
             <div className="inline-block relative" onMouseEnter={() => setShow(true)} onMouseLeave = {() => setShow(false)}>
                 {props.children}
                 {show && (<>
-
-                    <div className="absolute  left-1/2 translate-x-[-95.5%] p-1 px-3 
+                    {props.direction === 'top'?
+                    <div className="absolute bottom-5 left-1/2 translate-x-[-95.5%] p-1 px-3 
                                 text-white bg-soft-black text-[14px] z-100 whitespace-nowrap 
                                 ">
                         {props.content}
                     </div>
+                    :
+                    <div className="absolute  left-1/2 translate-x-[-95.5%] p-1 px-3 
+                    text-white bg-soft-black text-[14px] z-100 whitespace-nowrap 
+                    ">
+                        {props.content}
+                    </div>
+                    }
                     </>)}
             </div>
         :

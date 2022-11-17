@@ -5,15 +5,14 @@ import particleParams from './Particles'
 import Button from '../Common/Button';
 import {Link} from 'react-router-dom'
 import search_book from '../../Assets/Icons/search-book.png'
+
 function Home(){
     const [loaded,setLoaded] = useState(false)
     const particlesInit = useCallback(async engine => {
-        console.log(engine);
         await loadFull(engine);
     }, []);
 
     const particlesLoaded = useCallback(async container => {
-        await console.log(container);
         await setLoaded(true)
     }, []);
 

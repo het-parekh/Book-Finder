@@ -30,7 +30,7 @@ router.get('/auth/success',(req,res) => {
 })
 
 router.get('/logout',(req,res) => {
-  req.session.destroy()
+  req.session = null
   res.status(200).send("Logged Out Successfully")
 
 })

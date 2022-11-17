@@ -8,6 +8,7 @@ import Header from './Header'
 import Home from './Home/Home'
 import SavedBooks from './SavedBooks/SavedBooks'
 import Loader from './Common/Loader'
+import Footer from './Footer';
 import {checkAuthorization} from './Api'
 import PrivateRoute from './PrivateRoute';
 
@@ -21,7 +22,6 @@ function Main(){
                setAuthroizationStatus(true)
                setUserDetails({firstName:res.data?.firstName,lastName:res.data?.lastName,user_id:res.data?.user_id})
            }
-           console.log(res.data.user_id)
        })
        .catch(err => setAuthroizationStatus(false))
 
@@ -41,6 +41,7 @@ function Main(){
                     <Route path="/saved-books" element = {<SavedBooks auhtorizationStatus={auhtorizationStatus}/>} />
                 </Route>
             </Routes>
+            <Footer />
         </>
     )
 }

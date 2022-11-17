@@ -3,7 +3,7 @@ const User = require("../Models/User")
 
 mongoose.connect(process.env.URI,{    
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
 })
 .then(() => console.log("connected to database"))
 .catch((err) => console.log(err))
