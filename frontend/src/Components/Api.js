@@ -29,7 +29,7 @@ export const checkAuthorization = (() => {
 })
 
 export const logout = (() => {
-    return axios.get(baseUrl + 'user/logout',{withCredentials:true})
+    return axios.post(baseUrl + 'user/logout',{},{withCredentials:true})
 })
 
 export const addSavedBook = ((book_id) => {

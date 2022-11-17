@@ -30,9 +30,13 @@ function Header(props){
         setOpen(true)
     }
 
-    const handleLogout = async () => {
-        await logout()
-        window.location.href = '/'
+    const handleLogout = () => {
+        logout().then((res) =>{
+            if(res.status === 200){
+                window.location.href = '/'
+            }   
+        })
+        
     }
 
     return(
