@@ -1,6 +1,6 @@
 // const localStratergy = require('passport-local').Strategy;
 const User = require('../../Models/User');
-const bcrypt = require("bcrypt")
+// const bcrypt = require("bcrypt")
 const passport = require('passport')
 // const passportJWT = require("passport-jwt");
 // const JWTStrategy   = passportJWT.Strategy;
@@ -24,7 +24,7 @@ passport.serializeUser(function(user, done) {
 exports.googleAuthenticate = passport.use(new GoogleStrategy({
     clientID:     process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "/user/auth/google/callback",
+    callbackURL: "https://book-searchengine.vercel.app/bookse-backend/user/auth/google/callback",
     passReqToCallback   : true
   },
   function(request, accessToken, refreshToken, profile, done) {

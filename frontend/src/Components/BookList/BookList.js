@@ -8,7 +8,7 @@ import {addSavedBook,removeSavedBook} from '../Api'
 import Loader from '../Common/Loader'
 
 function BookList(props){
-
+    console.log(props.auhtorizationStatus,'status auth')
     useEffect(() => {
         window.addEventListener('resize', handleWindowSizeChange);
         return () => {

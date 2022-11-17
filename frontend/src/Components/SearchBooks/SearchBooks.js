@@ -26,7 +26,6 @@ function SearchBooks(props){
     useEffect(() => {
         if(props.auhtorizationStatus){
             getSavedBooks().then((res) => {
-                console.log("NORMANDY",res)
                 setSavedBooks(new Set([...res.data?.books]))
             })
         }
@@ -39,11 +38,9 @@ function SearchBooks(props){
                 setBooks([])
                 return
             }
-            console.log('res.data',res.data)
             let items = res.data.items
             let temp = []
             items.forEach((book) => {
-                console.log(book.volumeInfo.industryIdentifiers[0].identifier,"ISBN")
                 temp.push({
                     title:book.volumeInfo.title,
                     authors:book.volumeInfo.authors,

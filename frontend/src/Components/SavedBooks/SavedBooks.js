@@ -37,7 +37,6 @@ function SavedBooks(){
     if(!books){
         return <Loader />
     }
-    console.log(books,"heyaa",books.length,typeof books)
     
     return(
         <div className='container w-full '>

@@ -22,7 +22,6 @@ function Main(){
                setAuthroizationStatus(true)
                setUserDetails({firstName:res.data?.firstName,lastName:res.data?.lastName,user_id:res.data?.user_id})
            }
-           console.log(res.data.user_id)
        })
        .catch(err => setAuthroizationStatus(false))
 
