@@ -29,11 +29,11 @@ router.get('/auth/success',(req,res) => {
   
 })
 
-router.get('/logout',(req,res) => {
+router.get('/logout',async (req,res) => {
   req.session = null
-  res.clearCookie('session')
-  res.clearCookie('session.sig')
-  res.redirect(process.env.FRONTEND)
+  await res.clearCookie('session')
+  await res.clearCookie('session.sig')
+  res.status(200).send("Logout Successfull")
 
 })
 

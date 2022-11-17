@@ -31,7 +31,8 @@ function Header(props){
     }
 
     const handleLogout = async () => {
-        logout()
+        await logout()
+        window.location.href = '/'
     }
 
     return(
