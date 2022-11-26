@@ -45,7 +45,7 @@ function Header(props){
         </Link>
         
         <div className="flex ml-auto"><></>
-            {props.auhtorizationStatus === false?
+            {props.authorizationStatus === false?
                 <GoogleLogin />
             :
             <>
@@ -74,7 +74,7 @@ function Header(props){
             <div className={`flex  max-sm:w-full max-sm:flex-col ${open?"max-sm:h-[120px]":"max-sm:h-[0px]"} transition-all ease-in duration-250`}>
             {open &&
                 <>
-                {props.auhtorizationStatus === true?<>
+                {props.authorizationStatus === true?<>
                 <Link to='/saved-books' className='ml-4 hover:drop-shadow-lg inline-flex max-sm:ml-0 max-sm:py-1 max-sm:mt-2 max-sm:shadow-none max-sm:justify-center font-semibold '>
                     <div className='inline-flex'>
                         <img className='mt-auto mb-auto mr-0 h-6 w-6 max-sm:hidden' src={savedBooks} />

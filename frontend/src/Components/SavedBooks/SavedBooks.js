@@ -10,6 +10,7 @@ function SavedBooks(){
         
         (async () => {
         var fetchSavedBooks = await getSavedBooks()
+        setSavedBooks(new Set(fetchSavedBooks.data?.books))
         let book_ids = fetchSavedBooks.data?.books
         var temp = []
         for(let i =0 ;i < book_ids.length;i++){
@@ -34,15 +35,18 @@ function SavedBooks(){
     },[])
 
     const [books,setBooks] = useState()
+    const [savedBooks,setSavedBooks] = useState()
     if(!books){
         return <Loader />
     }
-    
+    console.log(savedBooks,'savedBooks')
+    console.log(books,'books')
+    console.log(books[0].isbn === "0253202175",'question')
     return(
         <div className='container w-full '>
             <h1 className='text-soft-black text-center mt-[2%] text-[40px]'>My <span className='text-theme-green'>Book</span>List</h1>
             <div>
-                <BookList books={books} authorizationStatus = {true} />
+                <BookList savedBooks={savedBooks} books={books} authorizationStatus = {true} />
             </div>
         </div>
     )
