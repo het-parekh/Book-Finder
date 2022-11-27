@@ -3,7 +3,6 @@ import googleLogo from '../../Assets/Icons/google-logo.svg'
 import  {googleAuth} from '../Api'
 
 function GoogleLogin(){
-
     const handleGoogleLogin = () => {
         googleAuth()
     }

@@ -8,7 +8,6 @@ import {addSavedBook,removeSavedBook} from '../Api'
 import Loader from '../Common/Loader'
 
 function BookList(props){
-    console.log(props.authorizationStatus,'status auth')
     useEffect(() => {
         window.addEventListener('resize', handleWindowSizeChange);
         return () => {
@@ -20,7 +19,6 @@ function BookList(props){
     const [width, setWidth] = useState(window.innerWidth);
     const [savedBooks,setSavedBooks] = useState(props.savedBooks)
     const isMobile = width <= 768
-    console.log(props.books,savedBooks,'inside')
     const handleWindowSizeChange = () => {
         setWidth(window.innerWidth)
     }

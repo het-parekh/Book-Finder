@@ -95,8 +95,8 @@ function FilterBooks(props){
         <div className="container w-[100%]  border-none mx-auto p-6  bg-theme-green max-sm:p-0 max-sm:overflow-x-hidden">
             {/*filter title */}
             <div className="flex-row flex justify-center">
-                <h2 className='font-[fantasy] text-soft-black text-[30px] mt-10'>FIND YOUR BOOK </h2>
-                <img src={bookIcon} className="w-9 h-9 mt-10 ml-2 rotate-12 "/>
+                <h2 className='font-[fantasy] text-soft-black text-[30px] sm-max:mt-10'>FIND YOUR BOOK </h2>
+                <img src={bookIcon} className="w-9 h-9 sm-max:mt-10 ml-2 rotate-12 "/>
             </div>
             
             {/*filter inputs */}
