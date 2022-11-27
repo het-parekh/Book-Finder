@@ -44,7 +44,7 @@ function SavedBooks(){
     console.log(books[0].isbn === "0253202175",'question')
     return(
         <div className='container w-full '>
-            <h1 className='text-soft-black text-center mt-[2%] text-[40px]'>My <span className='text-theme-green'>Book</span>List</h1>
+            <h1 className='text-soft-black text-center mt-[2%] text-[40px] mb-7'>My <span className='text-theme-green'>Book</span>List</h1>
             <div>
                 <BookList savedBooks={savedBooks} books={books} authorizationStatus = {true} />
             </div>

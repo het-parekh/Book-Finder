@@ -41,7 +41,7 @@ function Header(props){
     <nav className="flex items-center justify-between flex-wrap bg-theme-green p-4 sticky max-sm:p-2">
         <Link to='/' className="flex items-center flex-shrink-0 text-soft-black mr-6 max-sm:mr-2">
             <span className='content-open_book mr-3'></span>
-            <span className="font-semibold text-[24px] tracking-tight">BookSEO</span>
+            <span className="font-semibold text-[24px] tracking-tight">BookSE</span>
         </Link>
         
         <div className="flex ml-auto"><></>
