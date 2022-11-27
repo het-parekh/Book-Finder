@@ -12,7 +12,6 @@ function Pagination(props){
     })
 
     // 0,1,2,3,4....props.totalPages
-    console.log(props.totalPages,pages)
 
     const handleChangePage = useCallback((page) => {
         setCurrentPage(page)
@@ -25,7 +24,7 @@ function Pagination(props){
     
     return(
         <>
-            <div className='flex justify-center py-5'>
+            <div className='flex justify-center py-5 mb-5'>
                 <ul className='inline-flex' >
                     <li onClick={() => handleChangePage(0)} title="First Page" class='m-auto mr-1 py-1 px-2 border border-solid  border-theme-green transition hover:bg-theme-green duration-400 ease-in-out hover:cursor-pointer'>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">

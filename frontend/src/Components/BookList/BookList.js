@@ -58,7 +58,7 @@ function BookList(props){
     <>  
         {isMobile && props?.books && props.books.map((book,index) => (
             //  Small Screen View
-            <div className='border border-solid border-gray-300 drop-shadow-2xl flex flex-col p-3 relative mb-10 overflow-x-hidden touch-pan-y '>
+            <div className='border border-solid border-gray-300 drop-shadow-2xl flex flex-col p-3 relative  overflow-x-hidden touch-pan-y '>
                 <div className='flex'>
                     <div className="rounded-sm  flex-shrink-0 bottom-[-35px] left-[35px]">
                         <img src={book.thumbnail??coverUnavailable} width={90}  className="flex-shrink-0 h-[120px]" />

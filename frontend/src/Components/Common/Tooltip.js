@@ -13,7 +13,6 @@ function Tooltip(props){
     const [show,setShow] = useState(false)
     const [loginShow,setLoginShow] = useState(false)
     const popupRef = useRef(null)
-    console.log(loginShow,'login')
     const handleClickOutside = event => {
         if (popupRef.current && !popupRef.current.contains(event.target)) {
           setLoginShow(false)
