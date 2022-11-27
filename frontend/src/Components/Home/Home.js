@@ -23,7 +23,7 @@ function Home(){
             </div>
             {loaded === true? // Prevents screen buffer on page load due to canvas being loaded
             <div className="p-6 max-w-xl  rounded-lg shadow-md absolute border border-2px left-[50%] translate-x-[-50%] mt-40 max-sm:w-4/5 max-sm:mt-20 max-sm:p-3 ">
-                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-soft-black">BookSE</h5>
+                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-soft-black">Book Search Engine</h5>
                 <p className="mb-3 text-[18px] font-normal text-black">
                     Whether you want the cheapest reading copy or a specific collectible edition, 
                     with <i>BookSEO</i>, you'll find just the right book. BookSEO uses <i>Google Books API</i> to search the inventories 
