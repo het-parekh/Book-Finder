@@ -1,10 +1,24 @@
-import React,{useState} from "react";
+import React,{useState,useRef,useEffect} from "react";
 import GoogleLogin from './GoogleLogin'
 
 function Tooltip(props){
 
+    useEffect(() => {
+        document.addEventListener("click", handleClickOutside, false)
+        return () => {
+          document.removeEventListener("click", handleClickOutside, false)
+        };
+      }, [])
+
     const [show,setShow] = useState(false)
     const [loginShow,setLoginShow] = useState(false)
+    const popupRef = useRef(null)
+    console.log(loginShow,'login')
+    const handleClickOutside = event => {
+        if (popupRef.current && !popupRef.current.contains(event.target)) {
+          setLoginShow(false)
+        }
+      }
 
     return (<>
         {props.showlogin === false?
@@ -27,7 +41,7 @@ function Tooltip(props){
                     </>)}
             </div>
         :
-        <div className="inline-block relative" onClick={() => setLoginShow(!loginShow)} onMouseEnter={() => setShow(true)} onMouseLeave = {() => setShow(false)} >
+        <div ref={popupRef}  className="inline-block relative" onClick={() => setLoginShow(!loginShow)} onMouseEnter={() => setShow(true)} onMouseLeave = {() => setShow(false)} >
             {props.children}
             {show && (<>
                     {props.direction === 'top'?
@@ -45,7 +59,7 @@ function Tooltip(props){
                     }
                     </>)}
             {props.showlogin && loginShow  && 
-                <div className="absolute  left-1/2 translate-x-[-95.5%] p-6 
+                <div className="absolute  left-1/2 translate-x-[-97.5%] p-6 
                                 text-soft-black  z-[100] whitespace-nowrap bg-white
                                 ">
                     <div className="font-semibold mb-4 text-[18px]">Click the button below to login & access your saved collection.</div>
