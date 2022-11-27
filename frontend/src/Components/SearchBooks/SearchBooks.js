@@ -24,7 +24,7 @@ function SearchBooks(props){
     })
 
     useEffect(() => {
-        if(props.auhtorizationStatus){
+        if(props.authorizationStatus){
             getSavedBooks().then((res) => {
                 setSavedBooks(new Set([...res.data?.books]))
             })
@@ -66,7 +66,7 @@ function SearchBooks(props){
         <>
             <FilterBooks setShowBooks={setShowBooks } setBookParams={setBookParams}/>
             <div ref={myRef}>{showBooks?<SortBooks setBookParams={setBookParams} bookParams={bookParams} />:null}</div>
-            {showBooks?<BookList savedBooks={savedBooks} books = {books} auhtorizationStatus = {props.auhtorizationStatus}/>:null}
+            {showBooks?<BookList savedBooks={savedBooks} books = {books} authorizationStatus = {props.authorizationStatus}/>:null}
             {showBooks && totalPages?<Pagination executeScroll={executeScroll} setBookParams={setBookParams} totalPages={totalPages}/>:null}
         </>
     )

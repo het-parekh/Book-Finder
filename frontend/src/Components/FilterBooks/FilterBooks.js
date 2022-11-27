@@ -92,11 +92,11 @@ function FilterBooks(props){
 
 
     return(
-        <div className="container w-[100%]  border-2 border-solid rounded-md mt-6 mx-auto drop-shadow-lg hover:drop-shadow-lg bg-theme-green max-sm:border-none max-sm:overflow-x-hidden">
+        <div className="container w-[100%]  border-none mx-auto p-6  bg-theme-green max-sm:p-0 max-sm:overflow-x-hidden">
             {/*filter title */}
-            <div className="flex-row flex justify-center mt-10">
-                <h2 className='font-[fantasy] text-soft-black text-[30px]'>FIND YOUR BOOK </h2>
-                <img src={bookIcon} className="w-9 h-9 mt-1 ml-2 rotate-12"/>
+            <div className="flex-row flex justify-center">
+                <h2 className='font-[fantasy] text-soft-black text-[30px] sm-max:mt-10'>FIND YOUR BOOK </h2>
+                <img src={bookIcon} className="w-9 h-9 sm-max:mt-10 ml-2 rotate-12 "/>
             </div>
             
             {/*filter inputs */}
@@ -133,7 +133,7 @@ function FilterBooks(props){
                         {
                             Object.keys(allTopics).map((book) => {
                                 return(
-                                    <Chip text={book} status={allTopics[book]} selectTopic={selectTopic}/>
+                                    <span key={book}><Chip text={book} status={allTopics[book]} selectTopic={selectTopic}/></span>
                                 )
                             })
                         }

@@ -8,7 +8,6 @@ import {addSavedBook,removeSavedBook} from '../Api'
 import Loader from '../Common/Loader'
 
 function BookList(props){
-    console.log(props.auhtorizationStatus,'status auth')
     useEffect(() => {
         window.addEventListener('resize', handleWindowSizeChange);
         return () => {
@@ -20,7 +19,6 @@ function BookList(props){
     const [width, setWidth] = useState(window.innerWidth);
     const [savedBooks,setSavedBooks] = useState(props.savedBooks)
     const isMobile = width <= 768
-
     const handleWindowSizeChange = () => {
         setWidth(window.innerWidth)
     }
@@ -60,7 +58,7 @@ function BookList(props){
     <>  
         {isMobile && props?.books && props.books.map((book,index) => (
             //  Small Screen View
-            <div className='border border-solid border-gray-300 drop-shadow-2xl flex flex-col p-3 relative mb-10 overflow-x-hidden touch-pan-y '>
+            <div className='border border-solid border-gray-300 drop-shadow-2xl flex flex-col p-3 relative  overflow-x-hidden touch-pan-y '>
                 <div className='flex'>
                     <div className="rounded-sm  flex-shrink-0 bottom-[-35px] left-[35px]">
                         <img src={book.thumbnail??coverUnavailable} width={90}  className="flex-shrink-0 h-[120px]" />
@@ -117,13 +115,13 @@ function BookList(props){
                     </svg>
                 </div>
                 <div className='h-6 w-6 float-right absolute top-3 right-12 hover:cursor-pointer hover:shadow-[0px_0px_3px_rgba(26,26,26,0.3)]'>
-                    {props.auhtorizationStatus === true && savedBooks.has(book.isbn)?
+                    {props.authorizationStatus === true && savedBooks.has(book.isbn)?
                         
-                        <Tooltip showlogin={!props.auhtorizationStatus} content="Discard the book from your list">
+                        <Tooltip showlogin={!props.authorizationStatus} content="Discard the book from your list">
                             <img src={removeBook} onClick = {() => discardBook(book.isbn)}  />
                         </Tooltip>
                         :
-                        <Tooltip showlogin={!props.auhtorizationStatus} content="Save the book to your list">
+                        <Tooltip showlogin={!props.authorizationStatus} content="Save the book to your list">
                             <img src={addBook} onClick = {() => saveBook(book.isbn)}  />
                         </Tooltip>
                     }

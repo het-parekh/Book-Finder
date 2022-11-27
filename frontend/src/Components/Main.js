@@ -13,7 +13,7 @@ import {checkAuthorization} from './Api'
 import PrivateRoute from './PrivateRoute';
 
 function Main(){
-    const [auhtorizationStatus,setAuthroizationStatus] = useState()
+    const [authorizationStatus,setAuthroizationStatus] = useState()
     const [userDetails,setUserDetails] = useState({firstName:"",lastName:"",user_id:""})
 
     useEffect(() => {
@@ -27,18 +27,18 @@ function Main(){
 
    },[])
    
-   if(typeof auhtorizationStatus === 'undefined'){
+   if(typeof authorizationStatus === 'undefined'){
     return (<Loader />)
    }
     return(
         <>  
-            <Header auhtorizationStatus={auhtorizationStatus} userDetails={userDetails}/>
+            <Header authorizationStatus={authorizationStatus} userDetails={userDetails}/>
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/loader" element={<Loader />} />
-                <Route path="/books" element = {< SearchBooks auhtorizationStatus={auhtorizationStatus}/>} />
-                <Route element={<PrivateRoute auhtorizationStatus={auhtorizationStatus} />}>
-                    <Route path="/saved-books" element = {<SavedBooks auhtorizationStatus={auhtorizationStatus}/>} />
+                <Route path="/books" element = {< SearchBooks authorizationStatus={authorizationStatus}/>} />
+                <Route element={<PrivateRoute authorizationStatus={authorizationStatus} />}>
+                    <Route path="/saved-books" element = {<SavedBooks authorizationStatus={authorizationStatus}/>} />
                 </Route>
             </Routes>
             <Footer />
