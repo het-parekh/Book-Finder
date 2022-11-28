@@ -63,14 +63,16 @@ function Header(props){
                     </div>
             </>
             }
-            <button className="lg:hidden flex flex-col ml-2  rounded justify-center items-center group" onClick={() => setOpen(!open)}>
-                <div className={`${hamburger} ${open? "rotate-45 translate-y-2 group-hover:opacity-100": "group-hover:opacity-100"}`}
-                />
-                <div className={`${hamburger} ${open ? "opacity-0" : "group-hover:opacity-100"}`}
-                />
-                <div className={`${hamburger} ${open? "-rotate-45 -translate-y-2 group-hover:opacity-100": "group-hover:opacity-100"}`}
-                />
-            </button>
+            {props.authorizationStatus &&
+                <button className="lg:hidden flex flex-col ml-2  rounded justify-center items-center group" onClick={() => setOpen(!open)}>
+                    <div className={`${hamburger} ${open? "rotate-45 translate-y-2 group-hover:opacity-100": "group-hover:opacity-100"}`}
+                    />
+                    <div className={`${hamburger} ${open ? "opacity-0" : "group-hover:opacity-100"}`}
+                    />
+                    <div className={`${hamburger} ${open? "-rotate-45 -translate-y-2 group-hover:opacity-100": "group-hover:opacity-100"}`}
+                    />
+                </button>
+            }
         </div>
 
              
